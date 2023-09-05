@@ -8,27 +8,33 @@
 }
 
 body {
+  height: 100vh;
+  overflow: scroll;
+}
+
+.wrapper {
+  /* margin: 50px; */
+  min-height: 100vh;
+  padding: 50px;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(auto-fill, 265px);
   background-image: linear-gradient(
     to bottom right,
     rgb(239, 125, 148),
     rgb(240, 47, 86)
   );
-  height: 100vh;
-}
-
-.wrapper {
-  margin: 50px;
-  display: grid;
-  gap: 15px;
-  grid-template-columns: repeat(auto-fill, 265px);
 }
 
 .wrapper li {
   height: 250px;
   list-style: none;
-  background-color: rgba(255, 255, 255, 0.5);
+
   border-radius: 5px;
   padding: 15px 20px 20px;
+}
+.wrapper li:not(.add-box) {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .wrapper .note {
@@ -36,14 +42,21 @@ body {
   justify-content: space-between;
   flex-direction: column;
 }
+
+.note .details {
+  max-height: 165px;
+  overflow-y: auto;
+}
 .add-box {
-  height: 0px;
+  background-color: none;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  transition: translate(-50%, -50%);
   list-style: none;
 }
 .add-box .icon {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
   display: flex;
   cursor: pointer;
   padding: 0px;
@@ -60,13 +73,15 @@ body {
 .add-box p {
   opacity: 0%;
   width: 120px;
-  position: absolute;
+  z-index: 2;
   right: 100%;
   transition: all 0.5s ease;
   transform: scale(0);
+  padding-bottom: 5px;
 }
 .add-box:hover p {
   opacity: 100%;
+
   cursor: pointer;
   transform: scale(1);
 }
@@ -122,23 +137,28 @@ body {
   position: absolute;
   bottom: 0px;
   right: -5px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0 0 12px 1px rgba(0, 0, 0, 0.15);
   transition: transform 0.2s ease;
+  border-radius: 10px;
 }
-.settings:hover .menu {
+.settings.show .menu {
   transform: scale(1);
 }
 .settings .menu li {
-  height: 25px;
-  border-radius: 0px;
+  height: fit-content;
+  border-radius: 5px;
   font-size: 16px;
-  padding: 2px;
+  z-index: 3;
+  padding: 12px 0px;
   width: 110px;
+  padding-left: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .menu li:hover {
-  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .menu li i {
   padding-left: 8px;
@@ -210,9 +230,10 @@ body {
 
 form .row label {
   display: block;
+  font-weight: bold;
 }
 .content form :where(input, textarea) {
-  padding: 5px;
+  padding: 8px 15px;
   font-size: 20px;
   width: 100%;
   border-radius: 5px;
